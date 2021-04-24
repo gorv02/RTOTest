@@ -12,10 +12,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_trafficSigns"
-            app:destination="@id/trafficSigns" />
+            app:destination="@id/trafficSigns"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -44,7 +52,11 @@
         tools:layout="@layout/fragment_practice" />
     <fragment
         android:id="@+id/trafficSigns"
-        android:name="com.example.rtotest.fragments.TrafficSigns"
+        android:name="com.example.rtotest.fragments.TrafficSignsFragment"
         android:label="@string/traffic_signs"
-        tools:layout="@layout/fragment_traffic_signs" />
+        tools:layout="@layout/fragment_traffic_signs">
+        <argument
+            android:name="scroll_position"
+            app:argType="integer" />
+    </fragment>
 </navigation>

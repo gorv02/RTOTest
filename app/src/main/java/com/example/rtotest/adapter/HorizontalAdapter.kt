@@ -3,17 +3,15 @@ package com.example.rtotest.adapter
 
 import android.view.LayoutInflater
 import android.view.View
-
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
 
 
-class HorizontalAdapter(val list: List<TrafficSigns>) : RecyclerView.Adapter<HorizontalAdapter.MyView>() {
+class HorizontalAdapter(val list: List<TrafficSigns> ,val clickListener: ClickListener) : RecyclerView.Adapter<HorizontalAdapter.MyView>() {
 
     inner class MyView(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bindImages(sign: TrafficSigns) {
@@ -22,6 +20,10 @@ class HorizontalAdapter(val list: List<TrafficSigns>) : RecyclerView.Adapter<Hor
 
             imageView1.setImageResource(sign.signId)
             textView1.text = sign.signName
+
+            view.setOnClickListener {
+                clickListener.onClickRvHorizontal(adapterPosition)
+            }
         }
     }
 
@@ -41,4 +43,8 @@ class HorizontalAdapter(val list: List<TrafficSigns>) : RecyclerView.Adapter<Hor
     }
 
     override fun getItemCount(): Int = list.size
+
+    interface ClickListener{
+        fun onClickRvHorizontal(position: Int)
+    }
 }

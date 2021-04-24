@@ -18,7 +18,7 @@ import com.example.rtotest.dataGenerator.listTrafficIcons
 import com.example.rtotest.model.Question
 import com.example.rtotest.model.TrafficSigns
 
-class HomeFragment() : Fragment(), VerticalAdapter.ClickListener {
+class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdapter.ClickListener {
 
     private lateinit var rvHorizontal: RecyclerView
     private lateinit var rvVertical: RecyclerView
@@ -48,13 +48,13 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener {
     }
 
     private fun showRvHorizontal(view: View) {
-        listImg = listTrafficIcons(25)
+        listImg = listTrafficIcons(40)
 
         rvHorizontal = view.findViewById(R.id.rv_horizontal)
         val gridLM = GridLayoutManager(activity, 2, LinearLayoutManager.HORIZONTAL, false)
         rvHorizontal.apply {
             layoutManager = gridLM
-            adapter = HorizontalAdapter(listImg)
+            adapter = HorizontalAdapter(listImg, this@HomeFragment)
         }
     }
 
@@ -73,6 +73,14 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener {
     override fun onClickRvVertical(data: Question, QNo: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToQuestionFragment(
                 QNo, data.que.toString(), data.ans.toString()
+        )
+
+        findNavController().navigate(action)
+    }
+
+    override fun onClickRvHorizontal(position: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToTrafficSigns(
+                position
         )
 
         findNavController().navigate(action)

@@ -1,13 +1,12 @@
 package com.example.rtotest.adapter
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
@@ -16,10 +15,14 @@ import com.example.rtotest.model.TrafficSigns
 class TrafficSignsAdapter(val list: List<TrafficSigns>) : RecyclerView.Adapter<TrafficSignsAdapter.MyView>() {
 
     inner class MyView(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bindImages(sign: TrafficSigns) {
-            val trafficImg = view.findViewById<ImageView>(R.id.traffic_img)
-            var trafficText = view.findViewById<TextView>(R.id.traffic_text)
 
+        @SuppressLint("SetTextI18n")
+        fun bindImages(sign: TrafficSigns) {
+            val sNo = view.findViewById<TextView>(R.id.sNo_traffic_text)
+            val trafficImg = view.findViewById<ImageView>(R.id.traffic_img)
+            val trafficText = view.findViewById<TextView>(R.id.traffic_text)
+
+            sNo.text = "${(adapterPosition+1)}."
             trafficImg.setImageResource(sign.signId)
             trafficText.text = sign.signName
         }

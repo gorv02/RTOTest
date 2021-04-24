@@ -35,7 +35,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="24sp"
                         android:textColor="@color/black"
-                        tools:text="Question" />
+                        tools:text="Question"
+                        android:layout_marginBottom="8dp"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_options"

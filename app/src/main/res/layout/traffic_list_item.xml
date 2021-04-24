@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="8dp"
-    tools:ignore="UseCompoundDrawables">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    app:cardElevation="1dp">
 
-    <ImageView
-        android:id="@+id/traffic_img"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:contentDescription="@string/todo"
-        android:paddingTop="12dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        tools:srcCompat="@drawable/tr_bridge" />
-
-    <TextView
-        android:id="@+id/traffic_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:maxLines="1"
-        android:gravity="center_horizontal"
-        tools:text="Sign Name"
-        android:textColor="@color/black"/>
-</LinearLayout>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/sNo_traffic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:text="1." />
+
+        <ImageView
+            android:id="@+id/traffic_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/todo"
+            android:padding="12dp"
+            tools:srcCompat="@drawable/tr_bridge"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/traffic_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:text="Sign Name" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

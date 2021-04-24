@@ -22,12 +22,9 @@
                 android:id="@+id/imageView1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="8dp"
                 android:contentDescription="@string/todo"
-                android:paddingTop="12dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:padding="12dp"
                 tools:srcCompat="@drawable/tr_bridge" />
 
             <TextView
@@ -36,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:maxLines="1"
+                android:ellipsize="end"
                 tools:text="Sign Name" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
