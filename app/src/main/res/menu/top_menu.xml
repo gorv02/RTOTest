@@ -3,14 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/app_bar_share"
-        android:icon="@drawable/ic_baseline_share_24"
+        android:id="@+id/share_item"
+        android:icon="@drawable/ic_outline_share_24"
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/app_bar_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/settings_item"
+        android:icon="@drawable/ic_outline_settings_24"
         android:title="@string/setting"
+        android:menuCategory="secondary"
         app:showAsAction="ifRoom"/>
 </menu>

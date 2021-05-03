@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.TrafficSignsFragment"
-    android:layout_marginHorizontal="16dp">
+    tools:context=".fragments.TrafficSignsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_traffic_sign"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="30"
-        tools:listitem="@layout/traffic_list_item" />
+        tools:listitem="@layout/traffic_list_item"
+        android:scrollbars="vertical"/>
 
 </FrameLayout>

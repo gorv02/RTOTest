@@ -1,9 +1,7 @@
 package com.example.rtotest.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,7 +16,10 @@ import com.example.rtotest.dataGenerator.listTrafficIcons
 import com.example.rtotest.model.Question
 import com.example.rtotest.model.TrafficSigns
 
-class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdapter.ClickListener {
+class HomeFragment
+    : Fragment(),
+        VerticalAdapter.ClickListener,
+        HorizontalAdapter.ClickListener {
 
     private lateinit var rvHorizontal: RecyclerView
     private lateinit var rvVertical: RecyclerView
@@ -30,13 +31,15 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdap
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        setHasOptionsMenu(true)
+
+        expandBtn = view.findViewById(R.id.expand_text)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        expandBtn = view.findViewById(R.id.expand_text)
 
         expandBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_trafficSigns)
@@ -44,11 +47,10 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdap
 
         showRvHorizontal(view)
         showRvVertical(view)
-
     }
 
     private fun showRvHorizontal(view: View) {
-        listImg = listTrafficIcons(40)
+        listImg = listTrafficIcons(90)
 
         rvHorizontal = view.findViewById(R.id.rv_horizontal)
         val gridLM = GridLayoutManager(activity, 2, LinearLayoutManager.HORIZONTAL, false)
@@ -59,7 +61,7 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdap
     }
 
     private fun showRvVertical(view: View) {
-        listQA = listQueAns(50)
+        listQA = listQueAns(300)
 
         rvVertical = view.findViewById(R.id.rv_vertical)
         val linearLM = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -71,18 +73,25 @@ class HomeFragment() : Fragment(), VerticalAdapter.ClickListener, HorizontalAdap
     }
 
     override fun onClickRvVertical(data: Question, QNo: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToQuestionFragment(
-                QNo, data.que.toString(), data.ans.toString()
-        )
 
+        val action = HomeFragmentDirections.actionHomeFragmentToQuestionFragment(data)
         findNavController().navigate(action)
     }
 
     override fun onClickRvHorizontal(position: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToTrafficSigns(
-                position
-        )
 
+        val action = HomeFragmentDirections.actionHomeFragmentToTrafficSigns(position)
         findNavController().navigate(action)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.settings_item) {
+            findNavController().navigate(R.id.action_global_settingsFragment)
+            true
+        } else super.onOptionsItemSelected(item)
     }
 }

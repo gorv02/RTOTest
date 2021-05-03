@@ -23,33 +23,19 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.example.rtotest.fragments.QuestionFragment"
         android:label="Question"
         tools:layout="@layout/fragment_question">
         <argument
-            android:name="Qno"
-            app:argType="integer" />
-        <argument
-            android:name="question"
-            app:argType="string" />
-        <argument
-            android:name="answer"
-            app:argType="string" />
+            android:name="currentQuestion"
+            app:argType="com.example.rtotest.model.Question" />
     </fragment>
-    <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.rtotest.fragments.DashboardFragment"
-        android:label="@string/dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-    <fragment
-        android:id="@+id/practiceFragment"
-        android:name="com.example.rtotest.fragments.PracticeFragment"
-        android:label="@string/practice"
-        tools:layout="@layout/fragment_practice" />
+
     <fragment
         android:id="@+id/trafficSigns"
         android:name="com.example.rtotest.fragments.TrafficSignsFragment"
@@ -59,4 +45,42 @@
             android:name="scroll_position"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.example.rtotest.fragments.PracticeFragment"
+        android:label="@string/practice"
+        tools:layout="@layout/fragment_practice">
+        <action
+            android:id="@+id/action_practiceFragment_to_practiceQuestionFragment"
+            app:destination="@id/practiceQuestionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/practiceQuestionFragment"
+        android:name="com.example.rtotest.fragments.PracticeQuestionFragment"
+        android:label="@string/practice_questions"
+        tools:layout="@layout/fragment_practice_question" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.rtotest.fragments.SettingsFragment"
+        android:label="Settings" />
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.rtotest.fragments.DashboardFragment"
+        android:label="@string/dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.rtotest.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.Question
 
-class VerticalAdapter (private val list : List<Question>, private val onClick : ClickListener) :
-    RecyclerView.Adapter<VerticalAdapter.VerticalViewHolder>() {
+class VerticalAdapter(private val list: List<Question>,
+                      private val onClick: ClickListener)
+    : RecyclerView.Adapter<VerticalAdapter.VerticalViewHolder>() {
 
     inner class VerticalViewHolder(val view: View):
         RecyclerView.ViewHolder(view){
+            @SuppressLint("SetTextI18n")
             fun bindData(data : Question, QNo : Int){
                 val que = view.findViewById<TextView>(R.id.que)
                 val ans = view.findViewById<TextView>(R.id.ans)

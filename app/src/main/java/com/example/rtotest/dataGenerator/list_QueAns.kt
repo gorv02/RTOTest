@@ -3,7 +3,7 @@ package com.example.rtotest.dataGenerator
 import com.example.rtotest.model.Question
 
 fun listQueAns(size : Int): List<Question>{
-    var list = mutableListOf<Question>()
+    val list = mutableListOf<Question>()
     for (i in 1..size){
         val que = when{
             i%4 == 0 -> "You are approaching a narrow bridge," +
@@ -33,7 +33,7 @@ fun listQueAns(size : Int): List<Question>{
                     "licence to drive motor cycle,else no"
         }
 
-        list.add(Question(que, ans))
+        list.add(Question(i, que, ans))
     }
     return list
 }

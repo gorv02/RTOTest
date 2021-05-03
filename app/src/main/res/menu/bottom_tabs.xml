@@ -5,16 +5,13 @@
     <item
         android:id="@id/homeFragment"
         android:icon="@drawable/ic_outline_home_24"
-        android:title="@string/home"
-        app:showAsAction="ifRoom" />
+        android:title="@string/home" />
     <item
         android:id="@id/practiceFragment"
         android:icon="@drawable/ic_outline_library_books_24"
-        android:title="@string/practice"
-        app:showAsAction="ifRoom" />
-    <item
+        android:title="@string/practice"/>
+<!--    <item
         android:id="@id/dashboardFragment"
         android:icon="@drawable/ic_outline_dashboard_24"
-        android:title="@string/dashboard"
-        app:showAsAction="ifRoom" />
+        android:title="@string/dashboard"/>-->
 </menu>

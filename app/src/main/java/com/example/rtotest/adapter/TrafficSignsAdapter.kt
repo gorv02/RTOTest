@@ -1,6 +1,5 @@
 package com.example.rtotest.adapter
 
-
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
 
-
-class TrafficSignsAdapter(val list: List<TrafficSigns>) : RecyclerView.Adapter<TrafficSignsAdapter.MyView>() {
+class TrafficSignsAdapter(val list: List<TrafficSigns>)
+    : RecyclerView.Adapter<TrafficSignsAdapter.MyView>() {
 
     inner class MyView(private val view: View) : RecyclerView.ViewHolder(view) {
 

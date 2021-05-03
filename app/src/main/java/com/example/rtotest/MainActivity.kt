@@ -3,14 +3,12 @@ package com.example.rtotest
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.rtotest.fragments.DashboardFragment
 import com.example.rtotest.fragments.HomeFragment
 import com.example.rtotest.fragments.PracticeFragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -20,9 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private lateinit var homeFragment: Fragment
+    private lateinit var homeFragment: HomeFragment
     private lateinit var practiceFragment: PracticeFragment
-    private lateinit var dashboardFragment: DashboardFragment
 
     private lateinit var bottomNavBar: BottomNavigationView
     private lateinit var navController: NavController
@@ -34,21 +31,21 @@ class MainActivity : AppCompatActivity() {
 
         homeFragment = HomeFragment()
         practiceFragment = PracticeFragment()
-        dashboardFragment = DashboardFragment()
 
         bottomNavBar = findViewById(R.id.bottom_nav_bar)
         toolbar = findViewById(R.id.topAppBar_toolbar)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment)
+        val navHostFragment = supportFragmentManager
+                .findFragmentById(R.id.main_nav_host_fragment)
                 as NavHostFragment
         navController = navHostFragment.findNavController()
 
         appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.homeFragment , R.id.practiceFragment, R.id.dashboardFragment)
+                setOf(R.id.homeFragment, R.id.practiceFragment)
         )
 
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController , appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         bottomNavBar.setupWithNavController(navController)
 
@@ -56,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.homeFragment -> showBottomNav()
                 R.id.practiceFragment -> showBottomNav()
-                R.id.dashboardFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
@@ -73,5 +69,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
 }

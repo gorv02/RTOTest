@@ -1,10 +1,9 @@
 package com.example.rtotest.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
@@ -30,14 +29,15 @@ class TrafficSignsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+
         showRvTrafficSigns(view)
     }
 
     private fun showRvTrafficSigns(view: View) {
-        trafficSignList = listTrafficIcons(40)
+        trafficSignList = listTrafficIcons(90)
 
         rvTrafficSigns = view.findViewById(R.id.rv_traffic_sign)
-
         this.arguments?.getInt("scroll_position").let { position = it ?: 0}
 
         val linearLM = LinearLayoutManager(
@@ -49,10 +49,20 @@ class TrafficSignsFragment : Fragment() {
         rvTrafficSigns.apply {
             layoutManager = linearLM
             adapter = TrafficSignsAdapter(trafficSignList)
-
             scrollToPosition(position)
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+        menu.findItem(R.id.share_item).isVisible = false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.settings_item){
+            findNavController().navigate(R.id.action_global_settingsFragment)
+            true
+        } else super.onOptionsItemSelected(item)
+    }
 
 }

@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_one_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RTOTest">
-        <activity android:name="com.example.rtotest.MainActivity"
-            android:screenOrientation="userPortrait">
+        <activity android:name="com.example.rtotest.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
