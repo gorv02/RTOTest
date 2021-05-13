@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:overScrollMode="never">
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/traffic_sign_card"
@@ -43,24 +42,13 @@
                     android:id="@+id/rv_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:scrollbarStyle="outsideInset"
+                    android:scrollbars="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:itemCount="10"
-                    tools:listitem="@layout/grid_item"
+                    tools:listitem="@layout/list_item_home_traffic_signs"
                     tools:orientation="horizontal"
                     tools:spanCount="2" />
-
-                <TextView
-                    android:id="@+id/expand_text"
-                    style="@style/Widget.AppCompat.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="16dp"
-                    android:padding="4dp"
-                    android:text="@string/expand"
-                    android:textColor="@color/purple_500"
-                    android:textSize="16sp" />
-
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -81,9 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
+            android:scrollbars="vertical"
             tools:itemCount="20"
-            tools:listitem="@layout/list_item"
-            android:nestedScrollingEnabled="false"/>
+            tools:listitem="@layout/list_item_home_questions" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

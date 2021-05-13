@@ -17,17 +17,14 @@ class PracticeQuestionUIViewModel(
 
     private val mUIRepository = PracticeQuestionUIRepo(application)
 
-    val listPracticeQA: List<PracticeQuestion> = listPracticeQueAns(10)
+    val listPracticeQA: List<PracticeQuestion> = listPracticeQueAns(301)
 
-    val questionsListUI = mUIRepository.readAllData
-    fun getQuestionListUI() = questionsListUI.value
-    fun addList(){
-        if (getQuestionListUI() == null) {
-            val list = List(10) {
-                PracticeQuestionUI(0, false, null)
-            }
-            addDefaultList(list)
-        }
+    val questionsListUILive = mUIRepository.readAllDataAsLiveData
+
+    private val hasPreviousSession = MutableLiveData(false)
+    fun hasPreviousSessionValue() = hasPreviousSession.value ?: false
+    fun setPreviousSession(value: Boolean) {
+        hasPreviousSession.value = value
     }
 
     private val index = MutableLiveData(0)
@@ -36,9 +33,11 @@ class PracticeQuestionUIViewModel(
     fun setIndex(value: Int) {
         index.value = value
     }
+
     fun increaseIndex() {
         index.value = index.value?.plus(1)
     }
+
     fun decreaseIndex() {
         index.value = index.value?.minus(1)
     }
@@ -49,6 +48,7 @@ class PracticeQuestionUIViewModel(
     fun increaseCorrect() {
         answeredCorrect.value = answeredCorrect.value?.plus(1)
     }
+
     fun setAnsweredCorrect(value: Int) {
         answeredCorrect.value = value
     }
@@ -59,6 +59,7 @@ class PracticeQuestionUIViewModel(
     fun increaseIncorrect() {
         answeredIncorrect.value = answeredIncorrect.value?.plus(1)
     }
+
     fun setAnsweredIncorrect(value: Int) {
         answeredIncorrect.value = value
     }
@@ -66,18 +67,20 @@ class PracticeQuestionUIViewModel(
     private val currentItem = MutableLiveData<PracticeQuestionUI>()
     fun currentItem() = currentItem.value
             ?: PracticeQuestionUI(0, false, null)
+
     fun updateCurrentItem(index: Int) {
-        if (questionsListUI.value?.isNotEmpty() == true)
-        currentItem.value = questionsListUI.value?.get(index)
+        if (questionsListUILive.value?.isNotEmpty() == true)
+            currentItem.value = questionsListUILive.value?.get(index)
     }
 
-    fun addDefaultList (practiceQuestionUIList: List<PracticeQuestionUI>) {
+    fun addDefaultList(practiceQuestionUIList: List<PracticeQuestionUI>) {
         viewModelScope.launch(Dispatchers.IO) {
             mUIRepository.addDefaultList(
                     practiceQuestionUIList
             )
         }
     }
+
     fun update(practiceQuestionUI: PracticeQuestionUI) {
         viewModelScope.launch(Dispatchers.IO) {
             mUIRepository.update(
@@ -85,6 +88,7 @@ class PracticeQuestionUIViewModel(
             )
         }
     }
+
     fun deleteData() {
         viewModelScope.launch(Dispatchers.IO) {
             mUIRepository.deleteAll()

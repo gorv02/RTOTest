@@ -10,23 +10,25 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 
-class OptionsAdapter(
+class PracticeOptionsAdapter(
     private val options: List<String>,
     private val answerId: Int,
     private val isAnswered: Boolean,
     private var selectedOption: Int?,
     private val onClick: ClickListener,
-) : RecyclerView.Adapter<OptionsAdapter.OptionsViewHolder>() {
+) : RecyclerView.Adapter<PracticeOptionsAdapter.OptionsViewHolder>() {
 
     inner class OptionsViewHolder(private val view: View):
         RecyclerView.ViewHolder(view){
 
         @SuppressLint("SetTextI18n")
         fun bindData(data : String, SNo : Int){
-            val option = view.findViewById<TextView>(R.id.option)
+            val optionText = view.findViewById<TextView>(R.id.option_text)
+            val optionNo = view.findViewById<TextView>(R.id.option_no)
             val optionBg = view.findViewById<CardView>(R.id.option_bg)
 
-            option.text = "$SNo. $data"
+            optionText.text = data
+            optionNo.text = "$SNo."
 
             checkCorrectAnswer(data,optionBg)
 
@@ -54,7 +56,7 @@ class OptionsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OptionsViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.option_item, parent,false)
+            .inflate(R.layout.list_item_option, parent,false)
 
         return OptionsViewHolder(v)
     }

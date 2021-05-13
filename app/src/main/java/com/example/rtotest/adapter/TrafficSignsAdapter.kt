@@ -30,7 +30,7 @@ class TrafficSignsAdapter(val list: List<TrafficSigns>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
 
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.traffic_list_item, parent, false)
+            .inflate(R.layout.list_item_traffic_signs, parent, false)
 
         return MyView(itemView)
     }

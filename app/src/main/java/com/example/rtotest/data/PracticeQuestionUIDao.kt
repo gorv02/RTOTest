@@ -7,7 +7,7 @@ import com.example.rtotest.model.PracticeQuestionUI
 @Dao
 interface PracticeQuestionUIDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDefaultList(practiceQuestionUIList: List<PracticeQuestionUI>)
 
     @Update

@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.Question
 
-class VerticalAdapter(private val list: List<Question>,
-                      private val onClick: ClickListener)
-    : RecyclerView.Adapter<VerticalAdapter.VerticalViewHolder>() {
+class HomeQuestionListAdapter(private val list: List<Question>,
+                              private val onClick: ClickListener)
+    : RecyclerView.Adapter<HomeQuestionListAdapter.VerticalViewHolder>() {
 
     inner class VerticalViewHolder(val view: View):
         RecyclerView.ViewHolder(view){
@@ -31,7 +31,7 @@ class VerticalAdapter(private val list: List<Question>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item, parent,false)
+            .inflate(R.layout.list_item_home_questions, parent,false)
 
         return VerticalViewHolder(v)
     }

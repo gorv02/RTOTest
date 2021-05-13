@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".fragments.QuestionFragment">
+    android:layout_height="match_parent"
+    tools:context=".fragments.QuestionFragment"
+    android:animateLayoutChanges="true">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_margin="16dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="1dp">
@@ -22,14 +22,14 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/que_no"
+                android:id="@+id/que_no_questionFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 tools:text="Question 1" />
 
             <TextView
-                android:id="@+id/que_quefrag"
+                android:id="@+id/question_questionFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
@@ -46,7 +46,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/question_text"
+                android:id="@+id/answer_questionFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"

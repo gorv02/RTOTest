@@ -8,9 +8,10 @@ class PracticeQuestionUIRepo(context: Context) {
 
     private val practiceQuestionUserDatabase = PracticeQuestionUIDatabase.getDatabase(context)
 
-    val readAllData = practiceQuestionUserDatabase
+    val readAllDataAsLiveData = practiceQuestionUserDatabase
         .practiceQuestionUserDao()
         .getAll()
+
 
     suspend fun addDefaultList(practiceQuestionUIList: List<PracticeQuestionUI>) {
         practiceQuestionUserDatabase

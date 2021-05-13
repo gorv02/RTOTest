@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:animateLayoutChanges="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
@@ -21,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/topAppBar"
             app:layout_anchorGravity="center"
-            app:menu="@menu/top_menu"
+            app:menu="@menu/menu_primary"
             app:navigationIcon="@drawable/ic_launcher_foreground"
             app:title="RTO Exam" />
         <!--app:layout_scrollFlags="snap|enterAlways|scroll"-->
@@ -43,6 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:menu="@menu/bottom_tabs" />
+        app:menu="@menu/menu_bottom_tabs" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

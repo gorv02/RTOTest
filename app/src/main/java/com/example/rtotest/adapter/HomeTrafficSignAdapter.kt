@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
 
-class HorizontalAdapter(val list: List<TrafficSigns>,
-                        val clickListener: ClickListener)
-    : RecyclerView.Adapter<HorizontalAdapter.MyView>() {
+class HomeTrafficSignAdapter(val list: List<TrafficSigns>,
+                             val clickListener: ClickListener)
+    : RecyclerView.Adapter<HomeTrafficSignAdapter.MyView>() {
 
     inner class MyView(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bindImages(sign: TrafficSigns) {
@@ -29,7 +29,7 @@ class HorizontalAdapter(val list: List<TrafficSigns>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         val itemView: View = LayoutInflater.from(parent.context)
-                .inflate(R.layout.grid_item, parent, false)
+                .inflate(R.layout.list_item_home_traffic_signs, parent, false)
 
         return MyView(itemView)
     }

@@ -1,7 +1,10 @@
 package com.example.rtotest.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,24 +16,15 @@ import com.example.rtotest.model.TrafficSigns
 import kotlin.properties.Delegates
 
 
-class TrafficSignsFragment : Fragment() {
+class TrafficSignsFragment : Fragment(R.layout.fragment_traffic_signs) {
 
     private lateinit var rvTrafficSigns: RecyclerView
     private lateinit var trafficSignList: List<TrafficSigns>
     private var position by Delegates.notNull<Int>()
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_traffic_signs, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-
         showRvTrafficSigns(view)
     }
 
@@ -54,7 +48,7 @@ class TrafficSignsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_menu, menu)
+        inflater.inflate(R.menu.menu_primary, menu)
         menu.findItem(R.id.share_item).isVisible = false
     }
 
@@ -64,5 +58,4 @@ class TrafficSignsFragment : Fragment() {
             true
         } else super.onOptionsItemSelected(item)
     }
-
 }

@@ -9,45 +9,33 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.rtotest.fragments.HomeFragment
-import com.example.rtotest.fragments.PracticeFragment
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.rtotest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val appBarConfiguration by lazy {
+        AppBarConfiguration(
+                setOf(R.id.homeFragment, R.id.practiceFragment,
+                        R.id.examFragment, R.id.examScorecardFragment, R.id.examStatusFragment)
+        )
+    }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    private lateinit var homeFragment: HomeFragment
-    private lateinit var practiceFragment: PracticeFragment
-
-    private lateinit var bottomNavBar: BottomNavigationView
     private lateinit var navController: NavController
-    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        homeFragment = HomeFragment()
-        practiceFragment = PracticeFragment()
-
-        bottomNavBar = findViewById(R.id.bottom_nav_bar)
-        toolbar = findViewById(R.id.topAppBar_toolbar)
+        setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
                 .findFragmentById(R.id.main_nav_host_fragment)
                 as NavHostFragment
         navController = navHostFragment.findNavController()
 
-        appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.homeFragment, R.id.practiceFragment)
-        )
-
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.topAppBarToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        bottomNavBar.setupWithNavController(navController)
+        binding.bottomNavBar.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -59,11 +47,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showBottomNav() {
-        bottomNavBar.visibility = View.VISIBLE
+        binding.bottomNavBar.visibility = View.VISIBLE
     }
 
     private fun hideBottomNav() {
-        bottomNavBar.visibility = View.GONE
+        binding.bottomNavBar.visibility = View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {

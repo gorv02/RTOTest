@@ -3,154 +3,93 @@ package com.example.rtotest.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
-import com.example.rtotest.adapter.OptionsAdapter
+import com.example.rtotest.adapter.PracticeOptionsAdapter
+import com.example.rtotest.databinding.FragmentPracticeQuestionBinding
 import com.example.rtotest.model.PracticeQuestionUI
 import com.example.rtotest.viewmodels.PracticeQuestionUIViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
-class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
+class PracticeQuestionFragment : Fragment()
+    , PracticeOptionsAdapter.ClickListener{
 
-    private lateinit var mUIViewModel: PracticeQuestionUIViewModel
-
-    private lateinit var question: TextView
-    private lateinit var rvOptions: RecyclerView
-    private lateinit var nextBtn: Button
-    private lateinit var prevBtn: Button
-    private lateinit var correct: TextView
-    private lateinit var incorrect: TextView
+    private val mUIViewModel by lazy {
+        activity?.let{
+            ViewModelProvider(it).get(PracticeQuestionUIViewModel::class.java)
+        } ?:  ViewModelProvider(this).get(PracticeQuestionUIViewModel::class.java)
+    }
+    private val binding by lazy { FragmentPracticeQuestionBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mUIViewModel =
-                ViewModelProvider(this).get(PracticeQuestionUIViewModel::class.java)
-
-        restoreData()
-
         savedInstanceState?.let { inState ->
-            (inState.getInt("index") as Int?)?.let { index ->
-                mUIViewModel.setIndex(index)
-            }
-            (inState.getInt("ca") as Int?)?.let { ca ->
-                mUIViewModel.setAnsweredCorrect(ca)
-            }
-            (inState.getInt("ia") as Int?)?.let { ia ->
-                mUIViewModel.setAnsweredIncorrect(ia)
-            }
-        }
-    }
-
-    private fun restoreData() {
-        val sharedPreferences = this.activity?.getSharedPreferences("DATA", 0)
-        sharedPreferences?.apply {
-            mUIViewModel.setIndex(getInt("index", 0))
-            mUIViewModel.setAnsweredCorrect(getInt("ca", 0))
-            mUIViewModel.setAnsweredIncorrect(getInt("ia", 0))
+            mUIViewModel.setIndex(inState.getInt("index"))
+            mUIViewModel.setAnsweredCorrect(inState.getInt("ca"))
+            mUIViewModel.setAnsweredIncorrect(inState.getInt("ia"))
         }
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_practice_question,
-                container,
-                false)
-
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         setHasOptionsMenu(true)
+        return binding.root
+    }
 
-        view.apply {
-            question = findViewById(R.id.practice_question)
-            nextBtn = findViewById(R.id.nextBtn)
-            prevBtn = findViewById(R.id.prevBtn)
-            correct = findViewById(R.id.correct)
-            incorrect = findViewById(R.id.incorrect)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_exam_and_practice , menu)
+        menu.findItem(R.id.menu_item_timer).isVisible = false
+
+        val queNo = menu.findItem(R.id.menu_item_question_no)
+        mUIViewModel.index().observe(viewLifecycleOwner){
+            queNo.title = "${it+1}/${mUIViewModel.listPracticeQA.size}"
         }
+    }
 
-        mUIViewModel.addList()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        mUIViewModel.questionsListUI.observe(viewLifecycleOwner) {
-
+        mUIViewModel.questionsListUILive.observe(viewLifecycleOwner) {
             mUIViewModel.index().observe(viewLifecycleOwner) { index ->
                 mUIViewModel.updateCurrentItem(mUIViewModel.indexValue())
                 setQuestion(index)
-                showRvOptions(view, index)
+                showRvOptions(index)
 
                 when (index) {
-                    0 -> prevBtn.visibility = View.GONE
-                    mUIViewModel.listPracticeQA.size - 1 -> nextBtn.visibility = View.GONE
+                    0 -> {
+                        binding.prevBtn.visibility = View.GONE
+                        binding.nextBtn.visibility = View.VISIBLE
+                    }
+                    mUIViewModel.listPracticeQA.size - 1 -> {
+                        binding.nextBtn.visibility = View.GONE
+                        binding.prevBtn.visibility = View.VISIBLE
+                    }
                     else -> {
-                        prevBtn.visibility = View.VISIBLE
-                        nextBtn.visibility = View.VISIBLE
+                        binding.prevBtn.visibility = View.VISIBLE
+                        binding.nextBtn.visibility = View.VISIBLE
                     }
                 }
             }
 
             mUIViewModel.answeredCorrect().observe(viewLifecycleOwner) { value ->
-                correct.text = value.toString()
+                binding.correct.text = value.toString()
             }
 
             mUIViewModel.answeredIncorrect().observe(viewLifecycleOwner) { value ->
-                incorrect.text = value.toString()
+                binding.incorrect.text = value.toString()
             }
         }
 
-        return view
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.practice_question_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.restart) {
-            askToRestart()
-            true
-        } else super.onOptionsItemSelected(item)
-    }
-
-    private fun askToRestart() {
-        MaterialAlertDialogBuilder(requireContext())
-                .setTitle(
-                        "Restart Session"
-                )
-                .setMessage(
-                        "Do you want to restart this session?"
-                )
-                .setPositiveButton("Yes") { _, _ ->
-
-                    mUIViewModel.deleteData()
-                    val list = List(10) {
-                        PracticeQuestionUI(0, false, null)
-                    }
-                    mUIViewModel.addDefaultList(list)
-
-
-                    mUIViewModel.setIndex(0)
-                    mUIViewModel.setAnsweredCorrect(0)
-                    mUIViewModel.setAnsweredIncorrect(0)
-                }
-                .setNegativeButton("No") { _, _ -> }
-                .setCancelable(false)
-                .show()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        nextBtn.setOnClickListener { _ ->
+        binding.nextBtn.setOnClickListener {
             mUIViewModel.increaseIndex()
         }
 
-        prevBtn.setOnClickListener {
+        binding.prevBtn.setOnClickListener {
             mUIViewModel.decreaseIndex()
         }
     }
@@ -158,21 +97,18 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
     @SuppressLint("SetTextI18n")
     private fun setQuestion(index: Int) {
         mUIViewModel.apply {
-            question.text = "${index + 1}. ${listPracticeQA[index].que}"
+            binding.practiceQuestion.text = "${index + 1}. ${listPracticeQA[index].que}"
         }
     }
 
-    private fun showRvOptions(view: View, index: Int) {
-
-        rvOptions = view.findViewById(R.id.rv_options)
-
+    private fun showRvOptions(index: Int) {
         val linearLM = LinearLayoutManager(activity,
                 LinearLayoutManager.VERTICAL,
                 false)
 
-        rvOptions.let { rv ->
+        binding.rvOptions.let { rv ->
             rv.layoutManager = linearLM
-            rv.adapter = OptionsAdapter(
+            rv.adapter = PracticeOptionsAdapter(
                     mUIViewModel
                             .listPracticeQA[index]
                             .options,
@@ -184,7 +120,6 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
                     this@PracticeQuestionFragment
             )
         }
-
     }
 
     override fun onClickRvOption(
@@ -192,6 +127,10 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
             selectedOpt: Int?
     ) {
         if (!mUIViewModel.currentItem().isAnswered) {
+
+            if (!mUIViewModel.hasPreviousSessionValue()) {
+                mUIViewModel.setPreviousSession(true)
+            }
 
             val updated = PracticeQuestionUI(
                     mUIViewModel.currentItem().questionNo,
@@ -212,7 +151,7 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
                 }
             }
 
-            rvOptions.adapter = OptionsAdapter(
+            binding.rvOptions.adapter = PracticeOptionsAdapter(
                     mUIViewModel
                             .listPracticeQA[mUIViewModel.indexValue()]
                             .options,
@@ -227,8 +166,6 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
         mUIViewModel.indexValue().let { index ->
             outState.putInt("index", index)
         }
@@ -240,6 +177,7 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
         }
     }
 
+
     @SuppressLint("CommitPrefEdits")
     private fun saveData() {
         val sharedPreferences = this.activity?.getSharedPreferences("DATA", 0)
@@ -248,12 +186,14 @@ class PracticeQuestionFragment : Fragment(), OptionsAdapter.ClickListener {
             putInt("index", mUIViewModel.indexValue())
             putInt("ca", mUIViewModel.answeredCorrectValue())
             putInt("ia", mUIViewModel.answeredIncorrectValue())
+            putBoolean("hasPreviousSession", mUIViewModel.hasPreviousSessionValue())
             apply()
         }
     }
 
     override fun onDestroy() {
         saveData()
+        mUIViewModel.setIndex(0)
         super.onDestroy()
     }
 }

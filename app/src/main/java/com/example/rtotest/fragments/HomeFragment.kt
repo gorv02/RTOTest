@@ -2,73 +2,64 @@ package com.example.rtotest.fragments
 
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
-import com.example.rtotest.adapter.HorizontalAdapter
-import com.example.rtotest.adapter.VerticalAdapter
+import com.example.rtotest.adapter.HomeQuestionListAdapter
+import com.example.rtotest.adapter.HomeTrafficSignAdapter
 import com.example.rtotest.dataGenerator.listQueAns
 import com.example.rtotest.dataGenerator.listTrafficIcons
+import com.example.rtotest.databinding.FragmentHomeBinding
 import com.example.rtotest.model.Question
 import com.example.rtotest.model.TrafficSigns
 
+
 class HomeFragment
     : Fragment(),
-        VerticalAdapter.ClickListener,
-        HorizontalAdapter.ClickListener {
+        HomeQuestionListAdapter.ClickListener,
+        HomeTrafficSignAdapter.ClickListener {
 
-    private lateinit var rvHorizontal: RecyclerView
-    private lateinit var rvVertical: RecyclerView
-    private lateinit var expandBtn: TextView
+    private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
 
     private lateinit var listQA: List<Question>
     private lateinit var listImg: List<TrafficSigns>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         setHasOptionsMenu(true)
-
-        expandBtn = view.findViewById(R.id.expand_text)
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        expandBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_trafficSigns)
-        }
-
-        showRvHorizontal(view)
-        showRvVertical(view)
+        showRvHorizontal()
+        showRvVertical()
     }
 
-    private fun showRvHorizontal(view: View) {
+    private fun showRvHorizontal() {
         listImg = listTrafficIcons(90)
 
-        rvHorizontal = view.findViewById(R.id.rv_horizontal)
         val gridLM = GridLayoutManager(activity, 2, LinearLayoutManager.HORIZONTAL, false)
-        rvHorizontal.apply {
+        binding.rvHorizontal.apply {
             layoutManager = gridLM
-            adapter = HorizontalAdapter(listImg, this@HomeFragment)
+            adapter = HomeTrafficSignAdapter(listImg, this@HomeFragment)
         }
     }
 
-    private fun showRvVertical(view: View) {
+    private fun showRvVertical() {
         listQA = listQueAns(300)
 
-        rvVertical = view.findViewById(R.id.rv_vertical)
         val linearLM = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        rvVertical.apply {
+        binding.rvVertical.apply {
             layoutManager = linearLM
 
-            adapter = VerticalAdapter(listQA, this@HomeFragment)
+            adapter = HomeQuestionListAdapter(listQA, this@HomeFragment)
         }
     }
 
@@ -85,7 +76,7 @@ class HomeFragment
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_menu, menu)
+        inflater.inflate(R.menu.menu_primary, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -14,15 +14,15 @@
             android:id="@+id/action_homeFragment_to_questionFragment"
             app:destination="@id/questionFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_trafficSigns"
             app:destination="@id/trafficSigns"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
@@ -55,9 +55,16 @@
             android:id="@+id/action_practiceFragment_to_practiceQuestionFragment"
             app:destination="@id/practiceQuestionFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_practiceFragment_to_examIntroFragment"
+            app:destination="@id/examIntroFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -74,13 +81,71 @@
         android:id="@+id/action_global_settingsFragment"
         app:destination="@id/settingsFragment"
         app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/slide_out_right" />
 
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.rtotest.fragments.DashboardFragment"
-        android:label="@string/dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/examFragment"
+        android:name="com.example.rtotest.fragments.ExamFragment"
+        android:label="@string/exam"
+        tools:layout="@layout/fragment_exam" >
+        <action
+            android:id="@+id/action_examFragment_to_practiceFragment"
+            app:destination="@id/practiceFragment"
+            app:popUpTo="@id/practiceFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_examFragment_to_examStatusFragment"
+            app:destination="@id/examStatusFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/examIntroFragment"
+        android:name="com.example.rtotest.fragments.ExamIntroFragment"
+        android:label="Exam Instruction"
+        tools:layout="@layout/fragment_exam_intro" >
+        <action
+            android:id="@+id/action_examIntroFragment_to_examFragment"
+            app:destination="@id/examFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/examScorecardFragment"
+        android:name="com.example.rtotest.fragments.ExamScorecardFragment"
+        android:label="Scorecard"
+        tools:layout="@layout/fragment_exam_scorecard" >
+        <action
+            android:id="@+id/action_scorecardFragment_to_practiceFragment"
+            app:destination="@id/practiceFragment"
+            app:popUpTo="@id/practiceFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/examStatusFragment"
+        android:name="com.example.rtotest.fragments.ExamStatusFragment"
+        android:label="Score"
+        tools:layout="@layout/fragment_exam_status" >
+        <action
+            android:id="@+id/action_examStatusFragment_to_scorecardFragment"
+            app:destination="@id/examScorecardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_examStatusFragment_to_practiceFragment"
+            app:destination="@id/practiceFragment"
+            app:popUpTo="@id/practiceFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
 </navigation>
