@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.TrafficSignsFragment"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    tools:context=".fragments.TrafficSignsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_traffic_sign"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:itemCount="30"
-        tools:listitem="@layout/list_item_traffic_signs"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:scrollbarStyle="outsideInset"
         android:scrollbars="vertical"
-        android:scrollbarStyle="outsideInset" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="30"
+        tools:listitem="@layout/list_item_traffic_signs" />
 
 </FrameLayout>

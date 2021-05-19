@@ -31,7 +31,8 @@ class ExamStatusFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(this,
                 object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
-                        findNavController().navigate(R.id.action_examStatusFragment_to_practiceFragment)
+                        findNavController()
+                                .navigate(R.id.action_examStatusFragment_to_practiceFragment)
                     }
                 }
         )

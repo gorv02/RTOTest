@@ -111,5 +111,4 @@ class PracticeFragment : Fragment() {
             true
         } else super.onOptionsItemSelected(item)
     }
-
 }

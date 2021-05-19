@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rtotest.R
 import com.example.rtotest.adapter.PracticeOptionsAdapter
 import com.example.rtotest.databinding.FragmentPracticeQuestionBinding
@@ -47,7 +46,7 @@ class PracticeQuestionFragment : Fragment()
         menu.findItem(R.id.menu_item_timer).isVisible = false
 
         val queNo = menu.findItem(R.id.menu_item_question_no)
-        mUIViewModel.index().observe(viewLifecycleOwner){
+        mUIViewModel.index.observe(viewLifecycleOwner){
             queNo.title = "${it+1}/${mUIViewModel.listPracticeQA.size}"
         }
     }
@@ -55,7 +54,7 @@ class PracticeQuestionFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mUIViewModel.questionsListUILive.observe(viewLifecycleOwner) {
-            mUIViewModel.index().observe(viewLifecycleOwner) { index ->
+            mUIViewModel.index.observe(viewLifecycleOwner) { index ->
                 mUIViewModel.updateCurrentItem(mUIViewModel.indexValue())
                 setQuestion(index)
                 showRvOptions(index)
@@ -76,11 +75,11 @@ class PracticeQuestionFragment : Fragment()
                 }
             }
 
-            mUIViewModel.answeredCorrect().observe(viewLifecycleOwner) { value ->
+            mUIViewModel.answeredCorrect.observe(viewLifecycleOwner) { value ->
                 binding.correct.text = value.toString()
             }
 
-            mUIViewModel.answeredIncorrect().observe(viewLifecycleOwner) { value ->
+            mUIViewModel.answeredIncorrect.observe(viewLifecycleOwner) { value ->
                 binding.incorrect.text = value.toString()
             }
         }
@@ -102,13 +101,7 @@ class PracticeQuestionFragment : Fragment()
     }
 
     private fun showRvOptions(index: Int) {
-        val linearLM = LinearLayoutManager(activity,
-                LinearLayoutManager.VERTICAL,
-                false)
-
-        binding.rvOptions.let { rv ->
-            rv.layoutManager = linearLM
-            rv.adapter = PracticeOptionsAdapter(
+        binding.rvOptions.adapter = PracticeOptionsAdapter(
                     mUIViewModel
                             .listPracticeQA[index]
                             .options,
@@ -119,7 +112,6 @@ class PracticeQuestionFragment : Fragment()
                     mUIViewModel.currentItem().selectedOption,
                     this@PracticeQuestionFragment
             )
-        }
     }
 
     override fun onClickRvOption(
@@ -169,10 +161,10 @@ class PracticeQuestionFragment : Fragment()
         mUIViewModel.indexValue().let { index ->
             outState.putInt("index", index)
         }
-        mUIViewModel.answeredCorrect().value?.let { ca ->
+        mUIViewModel.answeredCorrectValue().let { ca ->
             outState.putInt("ca", ca)
         }
-        mUIViewModel.answeredIncorrect().value?.let { ia ->
+        mUIViewModel.answeredIncorrectValue().let { ia ->
             outState.putInt("ia", ia)
         }
     }

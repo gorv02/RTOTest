@@ -8,25 +8,25 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginHorizontal="12dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:rotationY="25"
             app:cardBackgroundColor="@color/dark_green"
-            app:cardCornerRadius="0dp"
             app:cardElevation="0dp">
 
             <TextView
                 android:id="@+id/score_menu_correct_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="4dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
                 android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -37,17 +37,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:rotationY="-25"
             app:cardBackgroundColor="@color/red_500"
-            app:cardCornerRadius="0dp"
             app:cardElevation="0dp">
 
             <TextView
                 android:id="@+id/score_menu_incorrect_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="4dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 tools:text="@string/_0" />

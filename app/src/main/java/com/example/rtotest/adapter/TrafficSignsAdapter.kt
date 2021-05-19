@@ -10,8 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
 
-class TrafficSignsAdapter(val list: List<TrafficSigns>)
+class TrafficSignsAdapter()
     : RecyclerView.Adapter<TrafficSignsAdapter.MyView>() {
+
+    private var list: List<TrafficSigns> = emptyList()
+
+    fun setList(list: List<TrafficSigns>){
+        this.list = list
+    }
 
     inner class MyView(private val view: View) : RecyclerView.ViewHolder(view) {
 

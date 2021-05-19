@@ -11,7 +11,7 @@ import com.example.rtotest.model.Question
 
 class QuestionFragment : Fragment() {
 
-    private lateinit var binding: FragmentQuestionBinding
+    private val binding by lazy { FragmentQuestionBinding.inflate(layoutInflater) }
     private lateinit var currentQuestion: Question
 
     override fun onCreateView(
@@ -20,7 +20,6 @@ class QuestionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        binding = FragmentQuestionBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -28,11 +27,12 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentQuestion = arguments?.getParcelable("currentQuestion")
-            ?: Question(1, "", "")
+        arguments?.getParcelable<Question>("currentQuestion")?.let {
+            currentQuestion = it
+        }
 
         binding.apply {
-            queNoQuestionFragment.text = "Question ${currentQuestion.questionNO}"
+            queNoQuestionFragment.text = "Question ${currentQuestion.questionNo}"
             questionQuestionFragment.text = currentQuestion.que
             answerQuestionFragment.text = currentQuestion.ans
         }
@@ -40,7 +40,7 @@ class QuestionFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_primary, menu)
-        menu.findItem(R.id.share_item).isVisible = false
+        menu.findItem(R.id.menu_primary_items).isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

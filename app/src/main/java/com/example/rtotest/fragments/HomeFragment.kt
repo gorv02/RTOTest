@@ -1,30 +1,24 @@
-package com.example.rtotest.fragments
+    package com.example.rtotest.fragments
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rtotest.R
-import com.example.rtotest.adapter.HomeQuestionListAdapter
-import com.example.rtotest.adapter.HomeTrafficSignAdapter
-import com.example.rtotest.dataGenerator.listQueAns
-import com.example.rtotest.dataGenerator.listTrafficIcons
+import com.example.rtotest.adapter.HomeListAdapter
+import com.example.rtotest.adapter.HomeRvClickListener
 import com.example.rtotest.databinding.FragmentHomeBinding
 import com.example.rtotest.model.Question
-import com.example.rtotest.model.TrafficSigns
+import com.example.rtotest.viewmodels.HomeViewModel
 
 
-class HomeFragment
-    : Fragment(),
-        HomeQuestionListAdapter.ClickListener,
-        HomeTrafficSignAdapter.ClickListener {
+    class HomeFragment : Fragment(), HomeRvClickListener {
 
+    private val mHomeViewModel by lazy {
+        ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
     private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
-
-    private lateinit var listQA: List<Question>
-    private lateinit var listImg: List<TrafficSigns>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,29 +32,15 @@ class HomeFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showRvHorizontal()
-        showRvVertical()
-    }
+        val adapter = HomeListAdapter(this)
 
-    private fun showRvHorizontal() {
-        listImg = listTrafficIcons(90)
-
-        val gridLM = GridLayoutManager(activity, 2, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHorizontal.apply {
-            layoutManager = gridLM
-            adapter = HomeTrafficSignAdapter(listImg, this@HomeFragment)
+        mHomeViewModel.listOfQuestion.observe(viewLifecycleOwner){ listQA ->
+            mHomeViewModel.listOfTrafficSigns.observe(viewLifecycleOwner){ listTS ->
+                adapter.setHomeLists(listQA , listTS)
+            }
         }
-    }
 
-    private fun showRvVertical() {
-        listQA = listQueAns(300)
-
-        val linearLM = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        binding.rvVertical.apply {
-            layoutManager = linearLM
-
-            adapter = HomeQuestionListAdapter(listQA, this@HomeFragment)
-        }
+        binding.homeRecyclerView.adapter = adapter
     }
 
     override fun onClickRvVertical(data: Question, QNo: Int) {

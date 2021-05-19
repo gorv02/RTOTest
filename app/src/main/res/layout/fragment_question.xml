@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.QuestionFragment"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    tools:context=".fragments.QuestionFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -32,10 +32,10 @@
                 android:id="@+id/question_questionFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:textSize="22sp"
-                android:textColor="@color/black"
                 android:layout_marginBottom="16dp"
+                android:paddingStart="16dp"
+                android:textColor="@color/black"
+                android:textSize="22sp"
                 tools:ignore="RtlSymmetry"
                 tools:text="@string/question" />
 

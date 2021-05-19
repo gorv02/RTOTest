@@ -2,6 +2,7 @@ package com.example.rtotest.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.rtotest.dataGenerator.listPracticeQueAns
@@ -21,56 +22,62 @@ class PracticeQuestionUIViewModel(
 
     val questionsListUILive = mUIRepository.readAllDataAsLiveData
 
-    private val hasPreviousSession = MutableLiveData(false)
-    fun hasPreviousSessionValue() = hasPreviousSession.value ?: false
+    private val _hasPreviousSession = MutableLiveData(false)
+    fun hasPreviousSessionValue() = _hasPreviousSession.value ?: false
     fun setPreviousSession(value: Boolean) {
-        hasPreviousSession.value = value
+        _hasPreviousSession.value = value
     }
 
-    private val index = MutableLiveData(0)
-    fun index() = index
-    fun indexValue() = index.value ?: 0
+    private val _index = MutableLiveData(0)
+    val index: LiveData<Int>
+        get() = _index
+
+    fun indexValue() = _index.value ?: 0
     fun setIndex(value: Int) {
-        index.value = value
+        _index.value = value
     }
 
     fun increaseIndex() {
-        index.value = index.value?.plus(1)
+        _index.value = _index.value?.plus(1)
     }
 
     fun decreaseIndex() {
-        index.value = index.value?.minus(1)
+        _index.value = _index.value?.minus(1)
     }
 
-    private val answeredCorrect = MutableLiveData(0)
-    fun answeredCorrect() = answeredCorrect
-    fun answeredCorrectValue() = answeredCorrect.value ?: 0
+    private val _answeredCorrect = MutableLiveData(0)
+    val answeredCorrect: LiveData<Int>
+        get() = _answeredCorrect
+
+    fun answeredCorrectValue() = _answeredCorrect.value ?: 0
     fun increaseCorrect() {
-        answeredCorrect.value = answeredCorrect.value?.plus(1)
+        _answeredCorrect.value = _answeredCorrect.value?.plus(1)
     }
 
     fun setAnsweredCorrect(value: Int) {
-        answeredCorrect.value = value
+        _answeredCorrect.value = value
     }
 
-    private var answeredIncorrect = MutableLiveData(0)
-    fun answeredIncorrect() = answeredIncorrect
-    fun answeredIncorrectValue() = answeredIncorrect.value ?: 0
+    private var _answeredIncorrect = MutableLiveData(0)
+    val answeredIncorrect: LiveData<Int>
+        get() = _answeredIncorrect
+
+    fun answeredIncorrectValue() = _answeredIncorrect.value ?: 0
     fun increaseIncorrect() {
-        answeredIncorrect.value = answeredIncorrect.value?.plus(1)
+        _answeredIncorrect.value = _answeredIncorrect.value?.plus(1)
     }
 
     fun setAnsweredIncorrect(value: Int) {
-        answeredIncorrect.value = value
+        _answeredIncorrect.value = value
     }
 
-    private val currentItem = MutableLiveData<PracticeQuestionUI>()
-    fun currentItem() = currentItem.value
+    private val _currentItem = MutableLiveData<PracticeQuestionUI>()
+    fun currentItem() = _currentItem.value
             ?: PracticeQuestionUI(0, false, null)
 
     fun updateCurrentItem(index: Int) {
         if (questionsListUILive.value?.isNotEmpty() == true)
-            currentItem.value = questionsListUILive.value?.get(index)
+            _currentItem.value = questionsListUILive.value?.get(index)
     }
 
     fun addDefaultList(practiceQuestionUIList: List<PracticeQuestionUI>) {

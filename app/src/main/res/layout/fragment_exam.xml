@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ExamFragment"
     android:animateLayoutChanges="true"
-    android:nestedScrollingEnabled="true">
+    android:nestedScrollingEnabled="true"
+    tools:context=".fragments.ExamFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/exam_question_card"
@@ -34,12 +33,13 @@
                 tools:text="Question" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:nestedScrollingEnabled="false"
                 android:id="@+id/exam_options_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="4"
-                tools:listitem="@layout/list_item_option"/>
+                tools:listitem="@layout/list_item_option" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

@@ -5,7 +5,8 @@
 
     <item
         android:id="@+id/menu_item_score"
+        android:checkable="false"
         android:title=""
-        app:showAsAction="always"
-        app:actionLayout="@layout/menu_item_score_layout" />
+        app:actionLayout="@layout/menu_item_score_layout"
+        app:showAsAction="always" />
 </menu>

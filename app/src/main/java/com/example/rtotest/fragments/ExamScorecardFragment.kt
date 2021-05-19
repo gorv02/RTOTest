@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rtotest.R
 import com.example.rtotest.adapter.ScorecardAdapter
 import com.example.rtotest.databinding.FragmentExamScorecardBinding
@@ -82,19 +81,10 @@ class ExamScorecardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val linearLM = LinearLayoutManager(
-            activity,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-
-        binding.scorecardRv.let { rv ->
-            rv.layoutManager = linearLM
-            rv.adapter = ScorecardAdapter(
+        binding.scorecardRv.adapter = ScorecardAdapter(
                 mExamViewModel.listExamQA,
                 mExamViewModel.getListOfIsCorrect(),
                 mExamViewModel.getListOfSelectedOptions()
-            )
-        }
+        )
     }
 }

@@ -1,5 +1,6 @@
 package com.example.rtotest.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rtotest.dataGenerator.listPracticeQueAns
@@ -9,53 +10,58 @@ class ExamViewModel : ViewModel() {
 
     val listExamQA: List<PracticeQuestion> = listPracticeQueAns(10)
 
-    private val index = MutableLiveData(0)
-    fun index() = index
-    fun indexValue() = index.value ?: 0
+    private val _index = MutableLiveData(0)
+    val index: LiveData<Int>
+        get() = _index
+
+    fun indexValue() = _index.value ?: 0
     fun setIndex(value: Int) {
-        index.value = value
+        _index.value = value
     }
 
     fun increaseIndex() {
-        index.value = index.value?.plus(1)
+        _index.value = _index.value?.plus(1)
     }
 
-    private val listOfSelectedOptions = MutableLiveData<MutableList<Int?>>(
+    private val _listOfSelectedOptions = MutableLiveData<MutableList<Int?>>(
             MutableList(listExamQA.size) { null }
     )
 
-    fun getSelectedOption(index: Int) = listOfSelectedOptions.value?.get(index)
-    fun getListOfSelectedOptions() = listOfSelectedOptions.value
+    fun getSelectedOption(index: Int) = _listOfSelectedOptions.value?.get(index)
+    fun getListOfSelectedOptions() = _listOfSelectedOptions.value
             ?: MutableList(listExamQA.size) { null }
 
     fun addSelectedOption(index: Int, option: Int?) {
-        listOfSelectedOptions.value?.let {
+        _listOfSelectedOptions.value?.let {
             it[index] = option
         }
     }
 
     fun resetListOfSelectedOptions() {
-        listOfSelectedOptions.value = MutableList(listExamQA.size) { null }
+        _listOfSelectedOptions.value = MutableList(listExamQA.size) { null }
     }
 
-    private val listOfIsCorrect = MutableLiveData<MutableList<Boolean?>>(
+    private val _listOfIsCorrect = MutableLiveData<MutableList<Boolean?>>(
             MutableList(listExamQA.size) { null }
     )
 
-    fun getListOfIsCorrect() = listOfIsCorrect.value ?: MutableList(listExamQA.size) { null }
+    fun getListOfIsCorrect() = _listOfIsCorrect.value ?: MutableList(listExamQA.size) { null }
     fun addIsCorrect(index: Int, isCorrect: Boolean?) {
-        listOfIsCorrect.value?.let {
+        _listOfIsCorrect.value?.let {
             it[index] = isCorrect
         }
     }
 
     fun resetListOfIsCorrect() {
-        listOfIsCorrect.value = MutableList(listExamQA.size) { null }
+        _listOfIsCorrect.value = MutableList(listExamQA.size) { null }
     }
 
-    var timeLeftInMillis = MutableLiveData<Long>()
-    fun getTimeLeftInMillis() = timeLeftInMillis.value ?: 30000
-    fun setTimeLeftInMillis(value: Long){
-        timeLeftInMillis.value = value
+    private val _timeLeftInMillis = MutableLiveData<Long>()
+    val timeLeftInMillis: LiveData<Long>
+        get() = _timeLeftInMillis
+
+    fun getTimeLeftInMillis() = _timeLeftInMillis.value ?: 30000
+    fun setTimeLeftInMillis(value: Long) {
+        _timeLeftInMillis.value = value
     }
 }

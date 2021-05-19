@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/practice_question_card"
@@ -36,7 +36,7 @@
                         android:layout_margin="8dp"
                         android:contentDescription="@string/practice_question_icon"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/practice_question_icon" />
+                        app:srcCompat="@drawable/icn_test" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                         android:layout_margin="8dp"
                         android:contentDescription="@string/practice_question_icon"
                         android:padding="8dp"
-                        app:srcCompat="@drawable/exam_icon" />
+                        app:srcCompat="@drawable/icn_exam_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"

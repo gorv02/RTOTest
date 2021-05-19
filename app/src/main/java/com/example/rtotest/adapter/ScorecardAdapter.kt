@@ -20,45 +20,44 @@ class ScorecardAdapter(
 
     inner class VerticalViewHolder(val view: View) :
         RecyclerView.ViewHolder(view) {
+        private val question = view.findViewById<TextView>(R.id.scorecard_question)
+        private val yourAnswer = view.findViewById<TextView>(R.id.scorecard_your_answer)
+        private val correctAnswer = view.findViewById<TextView>(R.id.scorecard_correct_answer)
+        private val statusImg = view.findViewById<ImageView>(R.id.scorecard_question_status_image)
+        private val statusText = view.findViewById<TextView>(R.id.scorecard_question_status_text)
 
         @SuppressLint("SetTextI18n")
         fun bindData(data: PracticeQuestion, isCorrect: Boolean?, selectedOption: Int?) {
-            val question = view.findViewById<TextView>(R.id.scorecard_question)
-            val yourAnswer = view.findViewById<TextView>(R.id.scorecard_your_answer)
-            val correctAnswer = view.findViewById<TextView>(R.id.scorecard_correct_answer)
-            val statusImg = view.findViewById<ImageView>(R.id.scorecard_question_status_image)
-            val statusText = view.findViewById<TextView>(R.id.scorecard_question_status_text)
 
             question.text = "${data.id}. ${data.que}"
             when (isCorrect) {
                 true -> {
-                    statusImg.setImageResource(R.drawable.ic_outline_check_circle_outline_24)
-                    statusText.text = "CORRECT"
-                    statusText.setTextColor(Color.parseColor("#008000"))
+                    setStatus(QuestionStatus.CORRECT)
                     yourAnswer.text = "Your Answer : ${data.options[data.ansId - 1]}"
-                    yourAnswer.setTextColor(Color.parseColor("#008000"))
                     yourAnswer.visibility = View.VISIBLE
                     correctAnswer.visibility = View.GONE
                 }
                 false -> {
-                    statusImg.setImageResource(R.drawable.ic_outline_cancel_24)
-                    statusText.text = "INCORRECT"
-                    statusText.setTextColor(Color.RED)
+                    setStatus(QuestionStatus.INCORRECT)
                     yourAnswer.text = "Your Answer : ${data.options[selectedOption!!]}"
-                    yourAnswer.setTextColor(Color.RED)
                     correctAnswer.text = "Correct Answer : ${data.options[data.ansId - 1]}"
                     yourAnswer.visibility = View.VISIBLE
                     correctAnswer.visibility = View.VISIBLE
                 }
                 else -> {
-                    statusImg.setImageResource(R.drawable.ic_round_error_outline_24)
-                    statusText.text = "UNANSWERED"
-                    statusText.setTextColor(Color.GRAY)
+                    setStatus(QuestionStatus.UNANSWERED)
                     correctAnswer.text = "Correct Answer : ${data.options[data.ansId - 1]}"
                     yourAnswer.visibility = View.GONE
                     correctAnswer.visibility = View.VISIBLE
                 }
             }
+        }
+
+        private fun setStatus(questionStatus: QuestionStatus){
+            statusImg.setImageResource(questionStatus.iconId)
+            statusText.text = questionStatus.toString()
+            statusText.setTextColor(questionStatus.color)
+            yourAnswer.setTextColor(questionStatus.color)
         }
     }
 
@@ -76,4 +75,13 @@ class ScorecardAdapter(
     override fun getItemCount(): Int {
         return list.size
     }
+}
+
+enum class QuestionStatus(val iconId: Int,val color: Int){
+    CORRECT(
+        R.drawable.ic_outline_check_circle_outline_24, Color.parseColor("#008000")),
+    INCORRECT(
+        R.drawable.ic_outline_cancel_24, Color.RED),
+    UNANSWERED(
+        R.drawable.ic_round_error_outline_24, Color.GRAY)
 }

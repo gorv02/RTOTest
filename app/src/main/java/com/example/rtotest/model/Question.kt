@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Question(
-        val questionNO: Int,
+        val questionNo: Int,
         val que: String?,
         val ans: String?
 ) : Parcelable

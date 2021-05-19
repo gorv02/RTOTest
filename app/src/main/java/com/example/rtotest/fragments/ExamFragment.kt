@@ -10,12 +10,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rtotest.R
 import com.example.rtotest.adapter.ExamOptionsAdapter
 import com.example.rtotest.databinding.FragmentExamBinding
 import com.example.rtotest.viewmodels.ExamViewModel
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
@@ -116,26 +114,23 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
         val timerMenuItemTextView = timerMenuItem.actionView
                 .findViewById<TextView>(R.id.menu_item_timer_text)
 
-        val timerMenuItemCard = timerMenuItem.actionView
-            .findViewById<MaterialCardView>(R.id.menu_item_timer_layout)
-
-        mExamViewModel.index().observe(viewLifecycleOwner) {
+        mExamViewModel.index.observe(viewLifecycleOwner) {
             queNoMenuItem.title = "${it + 1}/${mExamViewModel.listExamQA.size}"
         }
 
         mExamViewModel.timeLeftInMillis.observe(viewLifecycleOwner) {
             timerMenuItemTextView.text = "${it / 1000} s"
             if (it / 1000 < 10) {
-                timerMenuItemCard.setBackgroundColor(Color.RED)
+                timerMenuItemTextView.setTextColor(Color.RED)
             } else {
-                timerMenuItemCard.setBackgroundColor(Color.TRANSPARENT)
+                timerMenuItemTextView.setTextColor(Color.WHITE)
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        mExamViewModel.index().observe(viewLifecycleOwner) { index ->
+        mExamViewModel.index.observe(viewLifecycleOwner) { index ->
             showQuestion(index)
             showOptions(index)
 
@@ -174,21 +169,13 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
     }
 
     private fun showOptions(index: Int) {
-
-        val linearLM = LinearLayoutManager(activity,
-                LinearLayoutManager.VERTICAL,
-                false)
-
-        binding.examOptionsRv.let { rv ->
-            rv.layoutManager = linearLM
-            rv.adapter = ExamOptionsAdapter(
-                    mExamViewModel
-                            .listExamQA[index]
-                            .options,
-                    mExamViewModel.getSelectedOption(index),
-                    this@ExamFragment
-            )
-        }
+        binding.examOptionsRv.adapter = ExamOptionsAdapter(
+                mExamViewModel
+                        .listExamQA[index]
+                        .options,
+                mExamViewModel.getSelectedOption(index),
+                this@ExamFragment
+        )
     }
 
     override fun onClickRvOption(option: String, selectedOpt: Int?) {

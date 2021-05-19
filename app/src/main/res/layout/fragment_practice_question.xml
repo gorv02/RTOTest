@@ -6,93 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PracticeQuestionFragment">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_gravity="top">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="16dp">
-
-                <TextView
-                    android:id="@+id/practice_question"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    tools:text="Question" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_options"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/list_item_option"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="80dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp">
 
             <TextView
-                android:id="@+id/correct"
-                android:layout_width="wrap_content"
+                android:id="@+id/practice_question"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingEnd="8dp"
-                android:textAlignment="textEnd"
-                android:textColor="@color/green_500"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
                 android:textSize="24sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="@string/_0" />
+                tools:text="Question" />
 
-            <TextView
-                android:id="@+id/incorrect"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_options"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingStart="8dp"
-                android:textColor="@color/red_500"
-                android:textSize="24sp"
-                tools:ignore="RtlSymmetry"
-                tools:text="@string/_0" />
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="4"
+                tools:listitem="@layout/list_item_option" />
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <Button
-            android:id="@+id/prevBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:text="@string/previous"
-            app:icon="@drawable/ic_baseline_navigate_before_24"
-            app:iconGravity="textStart"
-            android:layout_gravity="bottom" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/nextBtn"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="160dp"
+        <TextView
+            android:id="@+id/correct"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:padding="8dp"
-            android:text="@string/next"
-            app:icon="@drawable/ic_baseline_navigate_next_24"
-            app:iconGravity="textEnd"
-            android:layout_gravity="bottom|end"/>
+            android:layout_weight="1"
+            android:paddingEnd="8dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/green_500"
+            android:textSize="24sp"
+            tools:ignore="RtlSymmetry"
+            tools:text="@string/_0" />
+
+        <TextView
+            android:id="@+id/incorrect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:textColor="@color/red_500"
+            android:textSize="24sp"
+            tools:ignore="RtlSymmetry"
+            tools:text="@string/_0" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/prevBtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:text="@string/previous"
+        app:icon="@drawable/ic_baseline_navigate_before_24"
+        app:iconGravity="textStart" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:text="@string/next"
+        app:icon="@drawable/ic_baseline_navigate_next_24"
+        app:iconGravity="textEnd" />
 
 </FrameLayout>
