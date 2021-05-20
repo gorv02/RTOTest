@@ -16,9 +16,7 @@ class PracticeQuestionFragment : Fragment()
     , PracticeOptionsAdapter.ClickListener{
 
     private val mUIViewModel by lazy {
-        activity?.let{
-            ViewModelProvider(it).get(PracticeQuestionUIViewModel::class.java)
-        } ?:  ViewModelProvider(this).get(PracticeQuestionUIViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(PracticeQuestionUIViewModel::class.java)
     }
     private val binding by lazy { FragmentPracticeQuestionBinding.inflate(layoutInflater) }
 

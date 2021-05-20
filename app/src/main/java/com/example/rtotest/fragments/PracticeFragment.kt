@@ -16,9 +16,7 @@ class PracticeFragment : Fragment() {
 
     private val binding by lazy { FragmentPracticeBinding.inflate(layoutInflater) }
     private val mUIViewModel by lazy {
-        activity?.let {
-            ViewModelProvider(it).get(PracticeQuestionUIViewModel::class.java)
-        } ?: ViewModelProvider(this).get(PracticeQuestionUIViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(PracticeQuestionUIViewModel::class.java)
     }
 
     override fun onCreateView(

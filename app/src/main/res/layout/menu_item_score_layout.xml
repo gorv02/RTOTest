@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:rotationY="25"
+            android:rotationY="28"
             app:cardBackgroundColor="@color/dark_green"
             app:cardElevation="0dp">
 
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:rotationY="-25"
+            android:rotationY="-28"
             app:cardBackgroundColor="@color/red_500"
             app:cardElevation="0dp">
 

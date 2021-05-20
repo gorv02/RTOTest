@@ -20,9 +20,7 @@ class ExamStatusFragment : Fragment() {
         FragmentExamStatusBinding.inflate(layoutInflater)
     }
     private val mExamViewModel by lazy {
-        activity?.let {
-            ViewModelProvider(it).get(ExamViewModel::class.java)
-        } ?: ViewModelProvider(this).get(ExamViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(ExamViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

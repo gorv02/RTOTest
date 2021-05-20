@@ -25,7 +25,8 @@ fun listPracticeQueAns(size: Int): List<PracticeQuestion> {
             else -> listOf(
                     "while driving down hill.",
                     "If the road is sufficiently wide.",
-                    "When the driver of the vehicle in front shows the signal to overtake.")
+                    "When the driver of the vehicle in front shows the signal to overtake.",
+                    "Vehicle can't overtake.")
         }
 
         val ans = when {
