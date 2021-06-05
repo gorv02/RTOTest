@@ -35,7 +35,17 @@ class PracticeQuestionFragment : Fragment()
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         setHasOptionsMenu(true)
+        mUIViewModel.run {
+            if (isPQTableInitialized.value != true) {
+                val list = List(listPracticeQA.size) {
+                    PracticeQuestionUI(0, false, null)
+                }
+                mUIViewModel.addDefaultList(list)
+                isPQTableInitialized.value = true
+            }
+        }
         return binding.root
     }
 
@@ -177,6 +187,7 @@ class PracticeQuestionFragment : Fragment()
             putInt("ca", mUIViewModel.answeredCorrectValue())
             putInt("ia", mUIViewModel.answeredIncorrectValue())
             putBoolean("hasPreviousSession", mUIViewModel.hasPreviousSessionValue())
+            putBoolean("isPQTableInitialised", mUIViewModel.isPQTableInitialized.value == true)
             apply()
         }
     }

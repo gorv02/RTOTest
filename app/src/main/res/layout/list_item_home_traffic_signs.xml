@@ -25,7 +25,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:contentDescription="@string/todo"
                 android:padding="12dp"
-                tools:srcCompat="@drawable/tr_bridge" />
+                tools:srcCompat="@android:drawable/btn_star" />
 
             <TextView
                 android:id="@+id/textView1"

@@ -118,12 +118,14 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
             queNoMenuItem.title = "${it + 1}/${mExamViewModel.listExamQA.size}"
         }
 
+        val timerTextColorStateList = timerMenuItemTextView.currentTextColor
+
         mExamViewModel.timeLeftInMillis.observe(viewLifecycleOwner) {
             timerMenuItemTextView.text = "${it / 1000} s"
             if (it / 1000 < 10) {
                 timerMenuItemTextView.setTextColor(Color.RED)
             } else {
-                timerMenuItemTextView.setTextColor(Color.WHITE)
+                timerMenuItemTextView.setTextColor(timerTextColorStateList)
             }
         }
     }

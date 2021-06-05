@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.TrafficSigns
+import com.example.rtotest.network.bindImageFromUrl
 
 class TrafficSignsAdapter()
     : RecyclerView.Adapter<TrafficSignsAdapter.MyView>() {
@@ -28,7 +29,7 @@ class TrafficSignsAdapter()
             val trafficText = view.findViewById<TextView>(R.id.traffic_text)
 
             sNo.text = "${(adapterPosition+1)}."
-            trafficImg.setImageResource(sign.signId)
+            bindImageFromUrl(trafficImg , sign.signUrl)
             trafficText.text = sign.signName
         }
     }

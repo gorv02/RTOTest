@@ -18,9 +18,11 @@ class PracticeQuestionUIViewModel(
 
     private val mUIRepository = PracticeQuestionUIRepo(application)
 
-    val listPracticeQA: List<PracticeQuestion> = listPracticeQueAns(301)
+    val listPracticeQA: List<PracticeQuestion> = listPracticeQueAns(210)
 
     val questionsListUILive = mUIRepository.readAllDataAsLiveData
+    val isPQTableInitialized = MutableLiveData<Boolean>()
+
 
     private val _hasPreviousSession = MutableLiveData(false)
     fun hasPreviousSessionValue() = _hasPreviousSession.value ?: false

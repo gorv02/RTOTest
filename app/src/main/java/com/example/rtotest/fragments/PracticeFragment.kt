@@ -20,74 +20,77 @@ class PracticeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
+            view: View,
+            savedInstanceState: Bundle?
     ) {
 
         binding.practiceQuestionCard.setOnClickListener {
             val sharedPreferences = this.activity?.getSharedPreferences("DATA", 0)
+
+            mUIViewModel.isPQTableInitialized.value =
+                    sharedPreferences?.getBoolean("isPQTableInitialised", false)
 
             sharedPreferences?.getBoolean("hasPreviousSession", false)?.let {
                 if (it) {
                     askToResume(sharedPreferences)
                 } else {
                     findNavController()
-                        .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
+                            .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
                 }
             }
         }
         binding.examCard.setOnClickListener {
             findNavController()
-                .navigate(R.id.action_practiceFragment_to_examIntroFragment)
+                    .navigate(R.id.action_practiceFragment_to_examIntroFragment)
         }
 
     }
 
     private fun askToResume(sharedPreferences: SharedPreferences?) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(
-                "Resume Previous Session"
-            )
-            .setMessage(
-                "You have a previous session.\n" +
-                        "Do you want to resume that session?"
-            )
-            .setPositiveButton("Yes") { _, _ ->
-                mUIViewModel.setPreviousSession(true)
-                restoreData(sharedPreferences)
+                .setTitle(
+                        "Resume Previous Session"
+                )
+                .setMessage(
+                        "You have a previous session.\n" +
+                                "Do you want to resume that session?"
+                )
+                .setPositiveButton("Yes") { _, _ ->
+                    mUIViewModel.setPreviousSession(true)
+                    restoreData(sharedPreferences)
 
-                findNavController()
-                    .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
-            }
-            .setNegativeButton("No") { _, _ ->
-
-                mUIViewModel.setIndex(0)
-                mUIViewModel.setAnsweredCorrect(0)
-                mUIViewModel.setAnsweredIncorrect(0)
-                mUIViewModel.setPreviousSession(false)
-
-                mUIViewModel.deleteData()
-
-                val list = List(mUIViewModel.listPracticeQA.size) {
-
-                    PracticeQuestionUI(0, false, null)
+                    findNavController()
+                            .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
                 }
-                mUIViewModel.addDefaultList(list)
+                .setNegativeButton("No") { _, _ ->
 
-                findNavController()
-                    .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
-            }
-            .setCancelable(false)
-            .show()
+                    mUIViewModel.setIndex(0)
+                    mUIViewModel.setAnsweredCorrect(0)
+                    mUIViewModel.setAnsweredIncorrect(0)
+                    mUIViewModel.setPreviousSession(false)
+
+                    mUIViewModel.deleteData()
+
+                    val list = List(mUIViewModel.listPracticeQA.size) {
+
+                        PracticeQuestionUI(0, false, null)
+                    }
+                    mUIViewModel.addDefaultList(list)
+
+                    findNavController()
+                            .navigate(R.id.action_practiceFragment_to_practiceQuestionFragment)
+                }
+                .setCancelable(false)
+                .show()
     }
 
     private fun restoreData(sharedPreferences: SharedPreferences?) {

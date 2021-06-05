@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rtotest.R
 import com.example.rtotest.model.Question
 import com.example.rtotest.model.TrafficSigns
+import com.example.rtotest.network.bindImageFromUrl
 
 class HomeListAdapter(
         private val homeRvClickListener: HomeRvClickListener,
@@ -96,7 +97,8 @@ class HomeTrafficSignAdapter(
             val imageView1 = view.findViewById<ImageView>(R.id.imageView1)
             val textView1 = view.findViewById<TextView>(R.id.textView1)
 
-            imageView1.setImageResource(sign.signId)
+            bindImageFromUrl(imageView1 , sign.signUrl)
+
             textView1.text = sign.signName
 
             view.setOnClickListener {
