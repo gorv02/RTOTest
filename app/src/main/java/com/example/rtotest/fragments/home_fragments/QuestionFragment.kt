@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.home_fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,21 +6,20 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
-import com.example.rtotest.databinding.FragmentQuestionBinding
 import com.example.rtotest.model.Question
+import kotlinx.android.synthetic.main.fragment_question.*
 
 class QuestionFragment : Fragment() {
 
-    private val binding by lazy { FragmentQuestionBinding.inflate(layoutInflater) }
     private lateinit var currentQuestion: Question
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_question, container, false)
     }
 
     @SuppressLint("SetTextI18n")
@@ -31,11 +30,9 @@ class QuestionFragment : Fragment() {
             currentQuestion = it
         }
 
-        binding.apply {
-            queNoQuestionFragment.text = "Question ${currentQuestion.questionNo}"
-            questionQuestionFragment.text = currentQuestion.que
-            answerQuestionFragment.text = currentQuestion.ans
-        }
+        que_no_questionFragment.text = "Question ${currentQuestion.questionNo}"
+        question_questionFragment.text = currentQuestion.que
+        answer_questionFragment.text = currentQuestion.ans
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

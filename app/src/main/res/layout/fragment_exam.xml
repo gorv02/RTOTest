@@ -1,71 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:nestedScrollingEnabled="true"
-    tools:context=".fragments.ExamFragment">
+    tools:context=".fragments.exam_fragments.ExamFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/exam_question_card"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardElevation="2dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/exam_question_text"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/exam_question_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                tools:text="Question" />
+                android:layout_margin="8dp"
+                app:cardElevation="2dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/exam_options_rv"
-                android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/exam_question_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        tools:text="Question" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/exam_options_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/list_item_option" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exam_finishBtn"
+                style="@style/Widget.MaterialComponents.TimePicker.Button"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="4"
-                tools:listitem="@layout/list_item_option" />
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:text="@string/finish"
+                android:visibility="gone"
+                app:iconGravity="textStart" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exam_nextBtn"
+                style="@style/Widget.MaterialComponents.TimePicker.Button"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                android:text="@string/next_question"
+                app:icon="@drawable/ic_baseline_navigate_next_24"
+                app:iconGravity="textEnd" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/exam_finishBtn"
-        style="@style/Widget.MaterialComponents.TimePicker.Button"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:text="@string/finish"
-        android:visibility="gone"
-        app:iconGravity="textStart" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/exam_nextBtn"
-        style="@style/Widget.MaterialComponents.TimePicker.Button"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:text="@string/next_question"
-        app:icon="@drawable/ic_baseline_navigate_next_24"
-        app:iconGravity="textEnd" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

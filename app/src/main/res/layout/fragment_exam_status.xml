@@ -4,42 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ExamStatusFragment">
+    tools:context=".fragments.exam_fragments.ExamStatusFragment">
 
-    <TextView
-        android:id="@+id/exam_status_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/exam" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/exam_status_tv">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/exam_status_home_btn"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/exam_status_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:text="@string/home" />
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/exam" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/exam_status_scorecard_btn"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:text="@string/scorecard" />
+            android:layout_margin="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/exam_status_tv">
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exam_status_home_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="@string/home" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exam_status_scorecard_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="@string/scorecard" />
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

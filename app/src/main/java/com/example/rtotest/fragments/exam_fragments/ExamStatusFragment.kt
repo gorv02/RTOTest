@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.exam_fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -11,16 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
-import com.example.rtotest.databinding.FragmentExamStatusBinding
 import com.example.rtotest.viewmodels.ExamViewModel
+import kotlinx.android.synthetic.main.fragment_exam_status.*
 
 class ExamStatusFragment : Fragment() {
 
-    private val binding by lazy {
-        FragmentExamStatusBinding.inflate(layoutInflater)
-    }
     private val mExamViewModel by lazy {
-            ViewModelProvider(requireActivity()).get(ExamViewModel::class.java)
+        ViewModelProvider(requireActivity()).get(ExamViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,28 +36,28 @@ class ExamStatusFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        return binding.root
+        return inflater.inflate(R.layout.fragment_exam_status, container, false)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         if (correctAns() >= 6) {
-            binding.examStatusTv.text = "Passed"
-            binding.examStatusTv.setTextColor(Color.GREEN)
+            exam_status_tv.text = "Passed"
+            exam_status_tv.setTextColor(Color.GREEN)
         } else {
-            binding.examStatusTv.text = "Failed"
-            binding.examStatusTv.setTextColor(Color.RED)
+            exam_status_tv.text = "Failed"
+            exam_status_tv.setTextColor(Color.RED)
         }
 
-        binding.examStatusHomeBtn.setOnClickListener {
+        exam_status_home_btn.setOnClickListener {
             mExamViewModel.setIndex(0)
             mExamViewModel.resetListOfIsCorrect()
             mExamViewModel.resetListOfSelectedOptions()
             findNavController().navigate(R.id.action_examStatusFragment_to_practiceFragment)
         }
 
-        binding.examStatusScorecardBtn.setOnClickListener {
+        exam_status_scorecard_btn.setOnClickListener {
             findNavController().navigate(R.id.action_examStatusFragment_to_scorecardFragment)
         }
     }

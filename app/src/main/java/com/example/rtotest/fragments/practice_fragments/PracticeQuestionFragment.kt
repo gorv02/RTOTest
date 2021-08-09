@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.practice_fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.rtotest.R
 import com.example.rtotest.adapter.PracticeOptionsAdapter
-import com.example.rtotest.databinding.FragmentPracticeQuestionBinding
 import com.example.rtotest.model.PracticeQuestionUI
 import com.example.rtotest.viewmodels.PracticeQuestionUIViewModel
+import kotlinx.android.synthetic.main.fragment_practice_question.*
 
 
 class PracticeQuestionFragment : Fragment()
@@ -18,7 +18,6 @@ class PracticeQuestionFragment : Fragment()
     private val mUIViewModel by lazy {
         ViewModelProvider(requireActivity()).get(PracticeQuestionUIViewModel::class.java)
     }
-    private val binding by lazy { FragmentPracticeQuestionBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +45,7 @@ class PracticeQuestionFragment : Fragment()
                 isPQTableInitialized.value = true
             }
         }
-        return binding.root
+        return inflater.inflate(R.layout.fragment_practice_question,  container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,34 +68,34 @@ class PracticeQuestionFragment : Fragment()
 
                 when (index) {
                     0 -> {
-                        binding.prevBtn.visibility = View.GONE
-                        binding.nextBtn.visibility = View.VISIBLE
+                        prevBtn.visibility = View.GONE
+                        nextBtn.visibility = View.VISIBLE
                     }
                     mUIViewModel.listPracticeQA.size - 1 -> {
-                        binding.nextBtn.visibility = View.GONE
-                        binding.prevBtn.visibility = View.VISIBLE
+                        nextBtn.visibility = View.GONE
+                        prevBtn.visibility = View.VISIBLE
                     }
                     else -> {
-                        binding.prevBtn.visibility = View.VISIBLE
-                        binding.nextBtn.visibility = View.VISIBLE
+                        prevBtn.visibility = View.VISIBLE
+                        nextBtn.visibility = View.VISIBLE
                     }
                 }
             }
 
             mUIViewModel.answeredCorrect.observe(viewLifecycleOwner) { value ->
-                binding.correct.text = value.toString()
+                correct.text = value.toString()
             }
 
             mUIViewModel.answeredIncorrect.observe(viewLifecycleOwner) { value ->
-                binding.incorrect.text = value.toString()
+                incorrect.text = value.toString()
             }
         }
 
-        binding.nextBtn.setOnClickListener {
+       nextBtn.setOnClickListener {
             mUIViewModel.increaseIndex()
         }
 
-        binding.prevBtn.setOnClickListener {
+        prevBtn.setOnClickListener {
             mUIViewModel.decreaseIndex()
         }
     }
@@ -104,12 +103,12 @@ class PracticeQuestionFragment : Fragment()
     @SuppressLint("SetTextI18n")
     private fun setQuestion(index: Int) {
         mUIViewModel.apply {
-            binding.practiceQuestion.text = "${index + 1}. ${listPracticeQA[index].que}"
+            practice_question.text = "${index + 1}. ${listPracticeQA[index].que}"
         }
     }
 
     private fun showRvOptions(index: Int) {
-        binding.rvOptions.adapter = PracticeOptionsAdapter(
+        rv_options.adapter = PracticeOptionsAdapter(
                     mUIViewModel
                             .listPracticeQA[index]
                             .options,
@@ -151,7 +150,7 @@ class PracticeQuestionFragment : Fragment()
                 }
             }
 
-            binding.rvOptions.adapter = PracticeOptionsAdapter(
+            rv_options.adapter = PracticeOptionsAdapter(
                     mUIViewModel
                             .listPracticeQA[mUIViewModel.indexValue()]
                             .options,

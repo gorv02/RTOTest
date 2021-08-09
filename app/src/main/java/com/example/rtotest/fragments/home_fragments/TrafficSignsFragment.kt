@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.home_fragments
 
 import android.os.Bundle
 import android.view.Menu

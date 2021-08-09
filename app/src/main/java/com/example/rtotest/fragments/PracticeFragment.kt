@@ -7,14 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
-import com.example.rtotest.databinding.FragmentPracticeBinding
 import com.example.rtotest.model.PracticeQuestionUI
 import com.example.rtotest.viewmodels.PracticeQuestionUIViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_practice.*
 
 class PracticeFragment : Fragment() {
 
-    private val binding by lazy { FragmentPracticeBinding.inflate(layoutInflater) }
     private val mUIViewModel by lazy {
         ViewModelProvider(requireActivity()).get(PracticeQuestionUIViewModel::class.java)
     }
@@ -25,7 +24,7 @@ class PracticeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_practice, container, false)
     }
 
     override fun onViewCreated(
@@ -33,7 +32,7 @@ class PracticeFragment : Fragment() {
             savedInstanceState: Bundle?
     ) {
 
-        binding.practiceQuestionCard.setOnClickListener {
+        practice_question_card.setOnClickListener {
             val sharedPreferences = this.activity?.getSharedPreferences("DATA", 0)
 
             mUIViewModel.isPQTableInitialized.value =
@@ -48,7 +47,7 @@ class PracticeFragment : Fragment() {
                 }
             }
         }
-        binding.examCard.setOnClickListener {
+        exam_card.setOnClickListener {
             findNavController()
                     .navigate(R.id.action_practiceFragment_to_examIntroFragment)
         }

@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.exam_fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -12,17 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
 import com.example.rtotest.adapter.ExamOptionsAdapter
-import com.example.rtotest.databinding.FragmentExamBinding
 import com.example.rtotest.viewmodels.ExamViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_exam.*
 import kotlin.properties.Delegates
 
 
 class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
 
-    private val binding by lazy {
-        FragmentExamBinding.inflate(layoutInflater)
-    }
     private val mExamViewModel by lazy {
         activity?.let {
             ViewModelProvider(it).get(ExamViewModel::class.java)
@@ -40,7 +37,7 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
             savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_exam, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,18 +143,18 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
 
             when (index) {
                 mExamViewModel.listExamQA.size - 1 -> {
-                    binding.examNextBtn.visibility = View.GONE
-                    binding.examFinishBtn.visibility = View.VISIBLE
+                    exam_nextBtn.visibility = View.GONE
+                    exam_finishBtn.visibility = View.VISIBLE
                 }
             }
         }
 
-        binding.examNextBtn.setOnClickListener {
+        exam_nextBtn.setOnClickListener {
             countDownTimer.cancel()
             mExamViewModel.increaseIndex()
         }
 
-        binding.examFinishBtn.setOnClickListener {
+        exam_finishBtn.setOnClickListener {
             countDownTimer.cancel()
             findNavController().navigate(R.id.action_examFragment_to_examStatusFragment)
         }
@@ -166,12 +163,12 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
     @SuppressLint("SetTextI18n")
     private fun showQuestion(index: Int) {
         mExamViewModel.apply {
-            binding.examQuestionText.text = "${index + 1}. ${listExamQA[index].que}"
+            exam_question_text.text = "${index + 1}. ${listExamQA[index].que}"
         }
     }
 
     private fun showOptions(index: Int) {
-        binding.examOptionsRv.adapter = ExamOptionsAdapter(
+        exam_options_rv.adapter = ExamOptionsAdapter(
                 mExamViewModel
                         .listExamQA[index]
                         .options,
@@ -194,7 +191,7 @@ class ExamFragment : Fragment(), ExamOptionsAdapter.ClickListener {
             }
         }
 
-        binding.examOptionsRv.adapter = ExamOptionsAdapter(
+        exam_options_rv.adapter = ExamOptionsAdapter(
                 mExamViewModel
                         .listExamQA[mExamViewModel.indexValue()]
                         .options,

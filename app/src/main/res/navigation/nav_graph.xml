@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.example.rtotest.fragments.QuestionFragment"
+        android:name="com.example.rtotest.fragments.home_fragments.QuestionFragment"
         android:label="Question"
         tools:layout="@layout/fragment_question">
         <argument
@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/trafficSigns"
-        android:name="com.example.rtotest.fragments.TrafficSignsFragment"
+        android:name="com.example.rtotest.fragments.home_fragments.TrafficSignsFragment"
         android:label="@string/traffic_signs"
         tools:layout="@layout/fragment_traffic_signs">
         <argument
@@ -69,7 +69,7 @@
 
     <fragment
         android:id="@+id/practiceQuestionFragment"
-        android:name="com.example.rtotest.fragments.PracticeQuestionFragment"
+        android:name="com.example.rtotest.fragments.practice_fragments.PracticeQuestionFragment"
         android:label="@string/practice_questions"
         tools:layout="@layout/fragment_practice_question" />
 
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/examFragment"
-        android:name="com.example.rtotest.fragments.ExamFragment"
+        android:name="com.example.rtotest.fragments.exam_fragments.ExamFragment"
         android:label="@string/exam"
         tools:layout="@layout/fragment_exam" >
         <action
@@ -106,7 +106,7 @@
 
     <fragment
         android:id="@+id/examIntroFragment"
-        android:name="com.example.rtotest.fragments.ExamIntroFragment"
+        android:name="com.example.rtotest.fragments.exam_fragments.ExamIntroFragment"
         android:label="Exam Instruction"
         tools:layout="@layout/fragment_exam_intro" >
         <action
@@ -118,7 +118,7 @@
 
     <fragment
         android:id="@+id/examScorecardFragment"
-        android:name="com.example.rtotest.fragments.ExamScorecardFragment"
+        android:name="com.example.rtotest.fragments.exam_fragments.ExamScorecardFragment"
         android:label="Scorecard"
         tools:layout="@layout/fragment_exam_scorecard" >
         <action
@@ -132,7 +132,7 @@
 
     <fragment
         android:id="@+id/examStatusFragment"
-        android:name="com.example.rtotest.fragments.ExamStatusFragment"
+        android:name="com.example.rtotest.fragments.exam_fragments.ExamStatusFragment"
         android:label="Score"
         tools:layout="@layout/fragment_exam_status" >
         <action

@@ -1,4 +1,4 @@
-package com.example.rtotest.fragments
+package com.example.rtotest.fragments.exam_fragments
 
 import android.os.Bundle
 import android.view.*
@@ -9,13 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
 import com.example.rtotest.adapter.ScorecardAdapter
-import com.example.rtotest.databinding.FragmentExamScorecardBinding
 import com.example.rtotest.viewmodels.ExamViewModel
+import kotlinx.android.synthetic.main.fragment_exam_scorecard.*
 
 class ExamScorecardFragment : Fragment() {
 
-    private val binding by lazy{
-        FragmentExamScorecardBinding.inflate(layoutInflater) }
 
     private val mExamViewModel by lazy {
             ViewModelProvider(requireActivity()).get(ExamViewModel::class.java)
@@ -41,7 +39,7 @@ class ExamScorecardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_exam_scorecard, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -79,7 +77,7 @@ class ExamScorecardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.scorecardRv.adapter = ScorecardAdapter(
+        scorecard_rv.adapter = ScorecardAdapter(
                 mExamViewModel.listExamQA,
                 mExamViewModel.getListOfIsCorrect(),
                 mExamViewModel.getListOfSelectedOptions()

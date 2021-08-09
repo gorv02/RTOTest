@@ -8,9 +8,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.rtotest.R
 import com.example.rtotest.adapter.HomeListAdapter
 import com.example.rtotest.adapter.HomeRvClickListener
-import com.example.rtotest.databinding.FragmentHomeBinding
 import com.example.rtotest.model.Question
 import com.example.rtotest.viewmodels.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
     class HomeFragment : Fragment(), HomeRvClickListener {
@@ -18,7 +18,6 @@ import com.example.rtotest.viewmodels.HomeViewModel
     private val mHomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
-    private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +25,7 @@ import com.example.rtotest.viewmodels.HomeViewModel
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +39,7 @@ import com.example.rtotest.viewmodels.HomeViewModel
             }
         }
 
-        binding.homeRecyclerView.adapter = adapter
+        home_recycler_view.adapter = adapter
     }
 
     override fun onClickRvVertical(data: Question, QNo: Int) {

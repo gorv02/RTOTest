@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.rtotest.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,23 +19,22 @@ class MainActivity : AppCompatActivity() {
                         R.id.examFragment, R.id.examScorecardFragment, R.id.examStatusFragment)
         )
     }
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager
                 .findFragmentById(R.id.main_nav_host_fragment)
                 as NavHostFragment
         navController = navHostFragment.findNavController()
 
-        setSupportActionBar(binding.topAppBarToolbar)
+        setSupportActionBar(topAppBar_toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.bottomNavBar.setupWithNavController(navController)
+        bottom_nav_bar.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -47,11 +46,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showBottomNav() {
-        binding.bottomNavBar.visibility = View.VISIBLE
+        bottom_nav_bar.visibility = View.VISIBLE
     }
 
     private fun hideBottomNav() {
-        binding.bottomNavBar.visibility = View.GONE
+        bottom_nav_bar.visibility = View.GONE
     }
 
     override fun onSupportNavigateUp(): Boolean {

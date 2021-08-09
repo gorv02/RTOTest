@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".fragments.ExamScorecardFragment">
+    tools:context=".fragments.exam_fragments.ExamScorecardFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scorecard_rv"
